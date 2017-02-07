@@ -1,3 +1,5 @@
+package wordpress
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,12 +17,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package wordpress
 
+// Meta contains key/value pairs
 type Meta struct {
 	ID    bool   `json:"id"`
 	Key   string `json:"key"`
 	Value string `json:"value"`
 }
 
+// Metas is a collection of Meta objects
 type Metas []Meta

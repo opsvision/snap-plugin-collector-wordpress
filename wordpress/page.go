@@ -1,3 +1,5 @@
+package wordpress
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,7 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package wordpress
 
 import (
 	"bytes"
@@ -31,6 +32,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// Page represents a WordPress page
 type Page struct {
 	Date          string  `json:"date"`
 	DateGmt       string  `json:"date_gmt"`
@@ -55,6 +57,7 @@ type Page struct {
 	Template      string  `json:"template"`
 }
 
+// Pages is a collection of Page objects
 type Pages []Page
 
 // GetPageMetrics calculates the time in milliseconds to load the page and resources
@@ -108,7 +111,7 @@ func (p *Page) GetPageMetrics() Metric {
 	}
 }
 
-// ListPages retrieves an array of Page objects from a WordPress site
+// GetPages retrieves an array of Page objects from a WordPress site
 func GetPages(site string) (Pages, error) {
 	var pages Pages
 	var buff bytes.Buffer

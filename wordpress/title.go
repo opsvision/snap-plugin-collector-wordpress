@@ -1,3 +1,5 @@
+package wordpress
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,8 +17,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package wordpress
 
+// Title contains the rendered page name
 type Title struct {
 	Rendered string `json:"rendered"`
 }

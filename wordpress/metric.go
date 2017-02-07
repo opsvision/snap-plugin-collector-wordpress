@@ -1,3 +1,5 @@
+package wordpress
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,8 +17,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package wordpress
 
+// Metric contains load times in milliseconds
 type Metric struct {
 	Page         string  `json:"page"`
 	PageLoad     float64 `json:"page_load"`
@@ -24,4 +26,5 @@ type Metric struct {
 	TotalLoad    float64 `json:"total_load"`
 }
 
+// Metrics is a collection of Metric objects
 type Metrics []Metric

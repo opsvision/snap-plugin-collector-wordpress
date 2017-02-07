@@ -1,3 +1,5 @@
+package wordpress
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,7 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package wordpress
 
 import (
 	"fmt"
@@ -31,14 +32,9 @@ const (
 	pluginVersion = 1                      // version
 )
 
+// WordPress is our client object
 type WordPress struct {
-	Initialized  bool
-	Connected    bool
-	Availability uint64  // site availability 0 or 100
-	ResolveTime  float64 // time to resolve site name in seconds
-	ConnectTime  float64 // time to connect to site in seconds
-	PageLoadTime float64 // time to download content in seconds
-	TotalTime    float64 // total time to complete
+	Initialized bool
 }
 
 // New instantiates our client
@@ -55,6 +51,7 @@ func (w *WordPress) init(cfg plugin.Config) {
 	w.Initialized = true
 }
 
+// CollectMetrics is called by Snap-Telemetry to gather metrics
 func (w *WordPress) CollectMetrics(mts []plugin.Metric) ([]plugin.Metric, error) {
 
 	/** Testing **/
@@ -97,10 +94,12 @@ func (w *WordPress) CollectMetrics(mts []plugin.Metric) ([]plugin.Metric, error)
 	return nil, nil
 }
 
+// GetMetricTypes returns metric types for testing
 func (w *WordPress) GetMetricTypes(cfg plugin.Config) ([]plugin.Metric, error) {
 	return nil, nil
 }
 
+// GetConfigPolicy returns the configPolicy for your plugin
 func (w *WordPress) GetConfigPolicy() (plugin.ConfigPolicy, error) {
 	policy := plugin.NewConfigPolicy()
 
