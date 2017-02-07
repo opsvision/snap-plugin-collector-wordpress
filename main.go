@@ -1,3 +1,5 @@
+package main
+
 /*
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  *
@@ -15,7 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package main
 
 import (
 	//"github.com/intelsdi-x/snap-plugin-lib-go/v1/plugin"
