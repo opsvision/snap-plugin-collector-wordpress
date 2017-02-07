@@ -1,2 +1,2 @@
 # snap-plugin-collector-wordpress
-Snap-Telemetry Collector Plugin for WordPress Sites
+Snap-Telemetry Collector Plugin for WordPress Sites [![Build Status](https://travis-ci.org/opsvision/snap-plugin-collector-wordpress.svg?branch=master)](https://travis-ci.org/opsvision/snap-plugin-collector-wordpress) [![Go Report Card](https://goreportcard.com/badge/github.com/opsvision/snap-plugin-collector-wordpress)](https://goreportcard.com/report/github.com/opsvision/snap-plugin-collector-wordpress)
