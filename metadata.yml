@@ -1,0 +1,10 @@
+name: WordPress
+type: collector
+maintainer: OpsVision
+license: Apache-2.0
+description: "Collects metrics from WordPress'
+badge:
+  - "[![Build Status](https://travis-ci.org/opsvision/snap-plugin-collector-wordpress.svg?branch=master)](https://travis-ci.org/opsvision/snap-plugin-collector-wordpress)"
+ci:
+  - https://travis-ci.org/opsvision/snap-plugin-collector-wordpress
+status: Development
