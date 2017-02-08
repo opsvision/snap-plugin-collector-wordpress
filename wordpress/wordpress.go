@@ -20,6 +20,7 @@ package wordpress
 
 import (
 	"fmt"
+	"regexp"
 	"sync"
 
 	"github.com/intelsdi-x/snap-plugin-lib-go/v1/plugin"
@@ -57,13 +58,19 @@ func (w *WordPress) CollectMetrics(mts []plugin.Metric) ([]plugin.Metric, error)
 	/** Testing **/
 
 	var wg sync.WaitGroup
+	var mutex sync.Mutex
+
+	re := regexp.MustCompile("^[HTTPhttp]+[Ss]?://")
+	site := re.ReplaceAllString(testing, "")
 	metrics := new(Metrics)
+	avail := 100
 
 	// Get all the pages via REST API
 	pages, err := GetPages(testing)
-	if err != nil {
-		fmt.Printf("Error: %s\n", err.Error())
-		return nil, nil
+	if err != nil || len(pages) == 0 {
+		//fmt.Printf("Error: %s\n", err.Error())
+		avail = 0
+
 	}
 
 	// Set the WaitGroup size
@@ -73,20 +80,30 @@ func (w *WordPress) CollectMetrics(mts []plugin.Metric) ([]plugin.Metric, error)
 	for _, page := range pages {
 		go func(page Page, metrics *Metrics) {
 			defer wg.Done()
-			var mutex sync.Mutex
-			m := page.GetPageMetrics()
-			mutex.Lock()
-			*metrics = append(*metrics, m)
-			mutex.Unlock()
 
+			// Get a mutex lock
+			mutex.Lock()
+			defer mutex.Unlock()
+
+			// Store the metrics
+			*metrics = append(*metrics, page.GetPageMetrics())
 		}(page, metrics)
 	}
 
 	wg.Wait()
 
+	// Site Availability
+	fmt.Printf("/%s/%s/availability: %d\n", pluginVendor, site, avail)
+
 	for _, m := range *metrics {
-		fmt.Printf("%s | Page Load: %.6f | Resource Load: %.6f | Total Load: %.6f\n",
-			m.Page, m.PageLoad, m.ResourceLoad, m.TotalLoad)
+		fmt.Printf("/%s/%s/%s/page_load: %.6f\n",
+			pluginVendor, site, m.Page, m.PageLoad)
+
+		fmt.Printf("/%s/%s/%s/resource_load: %.6f\n",
+			pluginVendor, site, m.Page, m.ResourceLoad)
+
+		fmt.Printf("/%s/%s/%s/total_load: %.6f\n",
+			pluginVendor, site, m.Page, m.TotalLoad)
 	}
 
 	/** End Testing **/

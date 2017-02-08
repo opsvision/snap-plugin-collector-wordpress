@@ -66,10 +66,12 @@ func (p *Page) GetPageMetrics() Metric {
 	var links []string
 	var start time.Time
 	var pLoad, rLoad, tLoad float64
+	var cSize int
 
 	// Get the page's contents
 	start = time.Now()
 	content := p.getPageContents(p.Link)
+	cSize = content.Len()
 	pLoad = time.Since(start).Seconds() * 1e3
 
 	// Create a page query
@@ -105,6 +107,7 @@ func (p *Page) GetPageMetrics() Metric {
 	// Store the metrics and return them
 	return Metric{
 		Page:         p.Slug,
+		ContentSize:  cSize,
 		PageLoad:     pLoad,
 		ResourceLoad: rLoad,
 		TotalLoad:    tLoad,

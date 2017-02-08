@@ -21,6 +21,7 @@ package wordpress
 // Metric contains load times in milliseconds
 type Metric struct {
 	Page         string  `json:"page"`
+	ContentSize  int     `json:"content_size"`
 	PageLoad     float64 `json:"page_load"`
 	ResourceLoad float64 `json:"resource_load"`
 	TotalLoad    float64 `json:"total_load"`
